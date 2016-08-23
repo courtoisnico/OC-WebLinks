@@ -15,7 +15,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
-$app->register(new \Silex\Provider\SecurityServiceProvider(),array(
+$app->register(new Silex\Provider\SecurityServiceProvider(),array(
     'security.firewalls' => array(
         'secured' => array(
             'pattern' => '^/',
@@ -28,15 +28,15 @@ $app->register(new \Silex\Provider\SecurityServiceProvider(),array(
         ),
     ),
 ));
-$app->register(new \Silex\Provider\MonologServiceProvider(), array(
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/../var/logs/microcms.log',
     'monolog.name' => 'MicroCMS',
     'monolog.level' => $app['monolog.level']
 ));
-$app->register(new \Silex\Provider\ServiceControllerServiceProvider());
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
 if (isset($app['debug']) && $app['debug']) {
-    $app->register(new \Silex\Provider\HttpFragmentServiceProvider());
-    $app->register(new \Silex\Provider\WebProfilerServiceProvider(), array(
+    $app->register(new Silex\Provider\HttpFragmentServiceProvider());
+    $app->register(new Silex\Provider\WebProfilerServiceProvider(), array(
         'profiler.cache_dir' => __DIR__.'/../var/cache/profiler'
     ));
 }
@@ -51,6 +51,8 @@ $app['dao.link'] = $app->share(function ($app) {
     $linkDAO->setUserDAO($app['dao.user']);
     return $linkDAO;
 });
+$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider());
 
 // Register error handler
 $app->error(function (\Exception $e, $code) use ($app){

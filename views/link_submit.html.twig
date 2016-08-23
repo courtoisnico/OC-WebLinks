@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+{% set linkSubmitMenu = true %}
+
+{% block title %}New Link{% endblock %}
+
+{% block content %}
+<p>
+    <h2 class="text-center">New Link</h2>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <div class="well">
+    {% if linkForm %}
+        {{ form_start(linkForm, { 'attr': {'class': 'form-horizontal' }}) }}
+            <div class="form-group">
+                {{ form_errors(linkForm.title) }}
+                <label class="col-md-4 control-label required" for="link_title">Title</label>
+                <div class="col-md-6">
+                {{ form_widget(linkForm.title, { 'attr': {
+                    'rows': '1',
+                    'class': 'form-control'
+                 }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(linkForm.url) }}
+                <label class="col-md-4 control-label required" for="link_url">Url</label>
+                <div class="col-md-6">
+                {{ form_widget(linkForm.url, { 'attr': {
+                    'rows': '1',
+                    'class': 'form-control'
+                }}) }}
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-3">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            </div>
+        </div>
+        {{ form_end(linkForm) }}
+    {% endif %}
+    </div>
+</p>
+{% endblock %}

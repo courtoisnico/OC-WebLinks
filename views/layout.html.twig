@@ -21,6 +21,13 @@
                     <a class="navbar-brand" href="/">WebLinks</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
+                    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <ul class="nav navbar-nav">
+                        <li class="{% if linkSubmitMenu is defined %}active{% endif %}">
+                            <a href="{{ path('link_submit') }}">Submit link</a>
+                        </li>
+                    </ul>
+                    {% endif %}
                     <ul class="nav navbar-nav navbar-right">
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="dropdown">
